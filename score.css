@@ -1,0 +1,16 @@
+.player-container {
+   position: relative;
+}
+
+.wind-background {
+	font-size: 3em;
+	opacity: 0.1;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index: -1;
+}
+
+.margin-top { margin-top : 20px; }
