@@ -117,7 +117,7 @@ Object.defineProperties(Player.prototype, {
 				getPoint = Number(point[0]) * 2 + Number(point[1]);
 			}
 
-			this.point        += getPoint + counter * 300
+			this.point        += getPoint + counter * 300 + this.room.deposit;
 			this.room.deposit  = 0; 
 
 			this.room.all.forEach( function (p) {
