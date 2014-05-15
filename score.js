@@ -4,7 +4,8 @@ var config = {
 	apiKey     : 'enxnz2an1739dx6r',
 	windsList  : ['east', 'south', 'west', 'north'],
 	firstPoint : 25000,
-
+	counterPoint : 300,
+	
 	score : {
 		dealer : {
 			tsumo : [500, 700, 800, 1000, 1200, 1300, 1500, 1600,
@@ -96,14 +97,14 @@ Object.defineProperties(Player.prototype, {
 	tsumo : {
 		value : function (point, counter) {
 			counter = Number(counter);
-
+			
 			var that = this;
 			var getPoint;
 			if (this.dealer === true) {
 				this.room.all.filter( function (p) {
 					return p !== that;
 				}).forEach( function (player) {
-					player.point -= (Number(point) + counter * 100);
+					player.point -= (Number(point) + counter * (config.counterPoint / 3));
 				});
 
 				getPoint = Number(point) * 3;
@@ -111,13 +112,13 @@ Object.defineProperties(Player.prototype, {
 				this.room.all.filter( function (p) {
 					return p !== that;
 				}).forEach( function (player) {
-					player.point -= (Number(player.dealer === true ? point[1] : point[0]) + counter * 100 ); 
+					player.point -= (Number(player.dealer === true ? point[1] : point[0]) + counter * (config.counterPoint / 3) ); 
 				});
 
 				getPoint = Number(point[0]) * 2 + Number(point[1]);
 			}
 
-			this.point        += getPoint + counter * 300 + this.room.deposit;
+			this.point        += getPoint + counter * config.counterPoint + this.room.deposit;
 			this.room.deposit  = 0; 
 
 			this.room.all.forEach( function (p) {
@@ -136,8 +137,8 @@ Object.defineProperties(Player.prototype, {
 			point   = Number(point);
 			counter = Number(counter);
 
-			player.point      -= (point + counter * 300);
-			this.point        += (point + this.room.deposit + counter * 300);
+			player.point      -= (point + counter * config.counterPoint);
+			this.point        += (point + this.room.deposit + counter * config.counterPoint);
 			this.room.deposit  = 0; 
 
 			this.room.all.forEach( function (p) {
